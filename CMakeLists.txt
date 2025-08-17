@@ -13,7 +13,9 @@ project ("leetcode")
 
 # 将源代码添加到此项目的可执行文件。
 add_executable (leetcode "leetcode.cpp" "leetcode.h")
-add_executable (POD_type "POD_type.cpp")
+add_executable (learn_array "learn_cpp/learn_array.cpp")
+add_executable (learn_std "learn_cpp/learn_std.cpp")
+add_executable (POD_type "learn_cpp/POD_type.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET leetcode PROPERTY CXX_STANDARD 20)
