@@ -5,7 +5,7 @@
 #include <vector>
 
 
-// 用迭代器实现二分查找
+// 鐢ㄨ凯浠ｅ櫒瀹炵幇浜屽垎鏌ユ壘
 std::vector<int>::const_iterator iterator_binary_search(const std::vector<int>& source, int sought)
 {
     auto begin = source.begin();
@@ -26,7 +26,7 @@ int main()
 {
     // std::string:
     std::cout << "std::string:" << std::endl;;
-    std::string s("你好!");
+    std::string s("浣犲ソ!");
     std::cout << s.size() << std::endl;
 
     // std::vector

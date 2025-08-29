@@ -1,4 +1,4 @@
-﻿// leetcode.cpp: 定义应用程序的入口点。
+// leetcode.cpp: 定义应用程序的入口点。
 //
 
 #include "leetcode.h"

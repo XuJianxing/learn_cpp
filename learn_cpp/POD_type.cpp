@@ -3,7 +3,7 @@
 struct MyPodType {
     int a;
     char b;
-    /* ╪саквт╤╗рЕ╧╧тЛ╨╞йЩрт╨Сё╛╬м╡╩йгPODюЮпмак
+    /* Е┼═Д╨├Х┤╙Е╝ Д╧┴Ф·└И─═Е┤╫Ф∙╟Д╩╔Е░▌О╪▄Е╟╠Д╦█Ф≤╞PODГ╠╩Е·▀Д╨├
     MyPodType(int aa, char bb)
     {
         a = aa;
