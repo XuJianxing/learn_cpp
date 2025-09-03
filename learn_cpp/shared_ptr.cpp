@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <string>
 
 int main(int argc, char **argv) {
 
@@ -19,6 +20,16 @@ int main(int argc, char **argv) {
 
     std::cout << "*p: " << *p << std::endl;
     std::cout << "p.use_count(): " << p.use_count() << std::endl;
+
+    std::shared_ptr<std::string> p2(new std::string("hi mom!"));
+    std::shared_ptr<std::string> p3 = std::make_shared<std::string>("hi dad!");
+    std::cout << "p2: " << p2 << " *p2: " << *p2 << " p3: " << p3 << " *p3: " << *p3 << std::endl;
+    // sp的内置的swap函数
+    p2.swap(p3);
+    std::cout << "p2: " << p2 << " *p2: " << *p2 << " p3: " << p3 << " *p3: " << *p3 << std::endl;
+    // 这里调用的是string的swap函数
+    p2->swap(*p3);
+    std::cout << "p2: " << p2 << " *p2: " << *p2 << " p3: " << p3 << " *p3: " << *p3 << std::endl;
 
     return 0;
 }
