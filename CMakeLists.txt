@@ -11,8 +11,8 @@ endif()
 
 project ("main")
 
-# 要在生成的项目中启用 C++17 标准。且要在生成执行文件的前面设置
-# set(CMAKE_CXX_STANDARD 17)
+# 要在生成的项目中启用 C++20 标准。且要在生成执行文件的前面设置
+set(CMAKE_CXX_STANDARD 20)
 
 # 包含头文件路径
 # include_directories(${PROJECT_SOURCE_DIR}/src/include)
