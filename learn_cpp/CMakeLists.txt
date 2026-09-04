@@ -1,15 +1,11 @@
+# 自动收集当前目录下所有 .cpp 文件，每个文件生成一个可执行文件。
+# CONFIGURE_DEPENDS: 新增/删除源文件时，构建阶段会自动重新执行 glob。
+file(GLOB CPP_DEMOS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
-# 将源代码添加到此项目的可执行文件。
-add_executable (learn_POD_type "POD_type.cpp")
-add_executable (learn_std "std.cpp")
-add_executable (learn_array "array.cpp")
-add_executable (learn_std_variant "std_variant.cpp")
-add_executable (learn_shared_ptr "shared_ptr.cpp")
-add_executable (learn_unique_ptr "unique_ptr.cpp")
-add_executable (learn_weak_ptr "weak_ptr.cpp")
-add_executable (learn_nrvo "nrvo.cpp")
-add_executable (singleton_atomic "singleton_atomic.cpp")
-add_executable (singleton_static "singleton_static.cpp")
-add_executable (singleton_unique_ptr "singleton_unique_ptr.cpp")
-add_executable (singleton_double_check "singleton_double_check.cpp")
-
+foreach(source_file IN LISTS CPP_DEMOS)
+  get_filename_component(target_name "${source_file}" NAME_WE)
+  add_executable(${target_name} "${source_file}")
+  set_target_properties(${target_name} PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+endforeach()
