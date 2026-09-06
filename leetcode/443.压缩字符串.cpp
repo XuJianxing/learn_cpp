@@ -103,6 +103,28 @@ public:
         }
         return insert_i;
     }
+
+    int compress(vector<char>& chars) {
+        for (size_t i = 0; i < chars.size(); i++)
+        {
+            int count = 1;
+            while (i + 1 < chars.size() && chars[i] == chars[i + 1])
+            {
+                count++;
+                chars.erase(chars.begin() + i + 1);
+            }
+            if (count > 1)
+            {
+                string str = to_string(count);
+                for (size_t j = 0; j < str.size(); j++)
+                {
+                    chars.insert(chars.begin() + i + 1 + j, str[j]);
+                }
+                i += str.size();
+            }
+        }
+        return chars.size();
+    }
 };
 // @lc code=end
 
