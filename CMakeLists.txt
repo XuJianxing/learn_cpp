@@ -20,6 +20,7 @@ set(CMAKE_CXX_STANDARD 20)
 # 添加子目录
 add_subdirectory(learn_cpp)
 add_subdirectory(leetcode)
+add_subdirectory(lcof)
 
 # 将源代码添加到此项目的可执行文件。
 add_executable (main "leetcode.cpp" "leetcode.h")
