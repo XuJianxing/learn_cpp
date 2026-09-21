@@ -62,6 +62,7 @@
  */
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -93,6 +94,28 @@ private:
             cur = cur->next[idx];
         }
         return cur;
+    }
+
+    // OUTER: 与本题无关，但是其他用到前缀树结构的地方需要的接口
+    // 先序遍历 node 子树，按字典序收集至多 limit 个单词（a->z 天然有序）
+    void collect(TrieNode* node, string& path, vector<string>& out, int limit) {
+        if ((int)out.size() >= limit) {
+            return;
+        }
+        if (node->isEnd) {
+            out.push_back(path);
+        }
+        for (int i = 0; i < 26; ++i) {
+            if (node->next[i] == nullptr) {
+                continue;
+            }
+            path.push_back('a' + i);
+            collect(node->next[i], path, out, limit);
+            path.pop_back();
+            if ((int)out.size() >= limit) {
+                return;
+            }
+        }
     }
 
     void destroy(TrieNode* node) {
@@ -133,6 +156,19 @@ public:
 
     bool startsWith(string prefix) {
         return find(prefix) != nullptr;
+    }
+
+    // OUTER: 与本题无关，但是其他用到前缀树结构的地方需要的接口
+    // 返回以 prefix 为前缀、字典序最小的至多 limit 个单词（用于搜索推荐）
+    vector<string> suggest(const string& prefix, int limit) {
+        vector<string> out;
+        TrieNode* node = find(prefix);
+        if (node == nullptr) {
+            return out;
+        }
+        string path = prefix;
+        collect(node, path, out, limit);
+        return out;
     }
 };
 
