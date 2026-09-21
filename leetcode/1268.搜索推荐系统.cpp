@@ -106,7 +106,9 @@ public:
             for (auto it = begin; it != products.end() && cur.size() < 3; ++it)
             {
                 // 逐字符比前 prefix.size() 位，不匹配说明这一段已经结束
-                if (it->compare(0, prefix.size(), prefix) != 0)
+                // C++ 20: if (it->starts_with(prefix))    // 最直接的接口
+                // if (it->rfind(prefix, 0) == 0)    // 从位置 0 找 prefix，找到了就是 0
+                if (it->compare(0, prefix.size(), prefix) != 0)  // < 0：子串字典序小于 str，>0就是子串字典序大于传入的比较串
                 {
                     break;
                 }
