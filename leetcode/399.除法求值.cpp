@@ -85,6 +85,12 @@ using namespace std;
 // @lc code=start
 class Solution {
 // ============ 解法一：BFS（建图 + 搜索，直观） ============
+/*
+复杂度
+建图：O(E)，E = equations.length（每条建 2 条边）。
+每个 query 一次 BFS：最坏遍历全图 O(V + E)，V ≤ 2E ≤ 40。
+总计 O(Q · (V + E))，Q ≤ 20，规模极小，完全够用。
+*/
 public:
     vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) {
         // 1. 建图：graph[a][b] 表示 a / b 的值
@@ -114,8 +120,12 @@ public:
                 continue;
             }
 
+            // 1. 防止死循环：图里有环（a→b→a），不标记会无限转圈。
+            // 2. 保证「首达即最终值」：题目保证输入无矛盾，所以到达同一节点的所有路径算出的比值必然相同（例如 a→b→c 得到 a/c=6，a→d→e→c 也一定是 6）。
+            // 因此第一次到达某个节点时算出的 cur 就是它的唯一正确值，没必要再被第二条路径更新一遍，直接剪掉即可。
             unordered_map<string, bool> visited;
             queue<pair<string, double>> qq;
+            // c是代求表达式的分子，所以从它开始走搜索路径
             qq.push({c, 1.0});
             visited[c] = true;
 
@@ -130,6 +140,8 @@ public:
                     break;
                 }
 
+                // 只根据已给出的equation做查找，而不是新造，而且也无法新造计算等式。
+                // 因为一条路径的开头和结尾节点一定要在路径中出现过才能算出来
                 for (auto& [nxt, w] : graph[node]) {
                     if (visited[nxt]) continue;
                     visited[nxt] = true;
