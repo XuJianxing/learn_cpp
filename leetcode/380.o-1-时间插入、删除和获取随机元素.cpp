@@ -73,12 +73,17 @@ using namespace std;
 // @lc code=start
 class RandomizedSet {
 public:
+    /*
+    本身插入删除操作，只用一个set或者哈希map就够了，但是因为有要求getRandom随机返回，
+    而哈希表无法随机返回一个容器中的值，所以还需要一个辅助数组，数组可以随机数产生一个下标并返回对应值
+    */
     RandomizedSet() {
         // {} 值初始化 调用默认构造函数造出一个临时的 random_device 对象
         // () 对它调用 operator()，产出一个随机数
         random_engine.seed(std::random_device{}());
     }
     
+    // 插入操作就两个容器都插入，但是map要记录值在数组中对应下标
     bool insert(int val) {
         if (indices.count(val)) {
             return false;
@@ -89,6 +94,7 @@ public:
         return true;
     }
     
+    // 删除操作的重点在于将变长数组的最后一个元素移动到待删除元素的下标处，然后删除变长数组的最后一个元素
     bool remove(int val) {
         if (!indices.count(val)) {
             return false;
